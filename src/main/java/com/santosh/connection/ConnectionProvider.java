@@ -7,60 +7,28 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
-import com.mysql.cj.jdbc.Driver;
 
 public class ConnectionProvider {
-    private static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/School_Info";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "root";
 
-    public static void main(String[] args) {
+    public static void stablishConnection() {
         try {
-            Class.forName(DRIVER_NAME);
-            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            Class.forName(Data.DRIVER_NAME);
+            Connection con = DriverManager.getConnection(Data.URL, Data.USERNAME, Data.PASSWORD);
 
             if (!con.isClosed()) {
                 System.out.println("Connection is Created");
-
-                System.out.println("You can do five operations in this software. Like Create, Insert, Update, Select and Delete.");
-                System.out.println("These operations is only applicable on MYSQL DB,");
                 System.out.println("Enter any operation you want to perform Like 'select'. ");
 
-
                 Scanner scanner = new Scanner(System.in);
-                String operation = scanner.next();
-                String query;
-                switch (operation) {
-                    case "create" -> {
-                        query = CreateTable.createTable();
-                        System.out.println(query);
-                        Statement stmt1 = con.createStatement();
-                        stmt1.executeUpdate(query);
-                        System.out.println("Tables is created in the DB.");
-                    }
+                String op = scanner.next();
 
-                    case "insert" -> {
+                String query = operation(op);
+                Statement stmt = con.createStatement();
+                stmt.executeUpdate(query);
+                System.out.println("Operation is successfully performed.");
 
-                    }
-
-                    case "update" -> {
-
-                    }
-
-                    case "select" -> {
-
-                    }
-
-                    case "delete" -> {
-
-                    }
-
-                    default -> {
-                        System.out.println("you entered wrong values");
-                    }
-                }
                 con.close();
+                System.out.println("Connection is closed");
             } else {
                 System.out.println("Connection is closed");
             }
@@ -69,5 +37,36 @@ public class ConnectionProvider {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String operation(String op){
+        String query = null;
+        switch (op) {
+            case "create" -> {
+                query = CreateTable.createTable();
+                System.out.println(query);
+            }
+
+            case "insert" -> {
+
+            }
+
+            case "update" -> {
+
+            }
+
+            case "select" -> {
+
+            }
+
+            case "delete" -> {
+
+            }
+
+            default -> {
+                System.out.println("you entered wrong values");
+            }
+        }
+        return query;
     }
 }

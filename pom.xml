@@ -14,7 +14,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
@@ -22,6 +21,5 @@
             <version>8.0.29</version>
         </dependency>
     </dependencies>
-
 
 </project>

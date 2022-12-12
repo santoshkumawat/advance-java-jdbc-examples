@@ -16,7 +16,6 @@ public class InsertTable {
         StringBuilder insertQuery = new StringBuilder();
         insertQuery.append("INSERT INTO ").append(tableName).append(" VALUES (");
 
-
         insertQuery.append(");");
         String query = insertQuery.toString();
 
@@ -27,7 +26,7 @@ public class InsertTable {
     public static void findColumnNameAndType(ResultSet rs) throws SQLException {
         ResultSetMetaData rsmd = rs.getMetaData();
         int columnCount = rsmd.getColumnCount();
-        for (int i = 1; i <= columnCount; i++) {
+        for (int i =1; i<=columnCount; i++){
             System.out.print(rsmd.getColumnName(i) + " (");
             System.out.print(rsmd.getColumnTypeName(i) + "(");
             System.out.print(rsmd.getColumnDisplaySize(i) + ")) \t \t");
@@ -35,7 +34,7 @@ public class InsertTable {
         System.out.println();
     }
 
-    public static String selectData(String tableName) {
+    public static String selectData(String tableName){
         String selectQuery = "SELECT * FROM " + tableName + ";";
         return selectQuery;
     }

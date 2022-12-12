@@ -17,13 +17,23 @@ public class Main {
 
         try {
             if (!con.isClosed()) {
-                System.out.println("Enter any operation you want to perform Like 'create, insert, delete' etc.");
-                Scanner scanner = new Scanner(System.in);
-                String operation = scanner.next();
+                boolean programStart = true;
+                while (programStart) {
+                    System.out.println("Enter any operation you want to perform Like 'create, insert, delete' etc.");
+                    Scanner scanner = new Scanner(System.in);
+                    String operation = scanner.next();
 
-                OperationPerformer op = new OperationPerformer();
-                op.operation(operation, con);
+                    OperationPerformer op = new OperationPerformer();
+                    op.operation(operation, con);
 
+                    System.out.println("Do you want to perform any other operation, type yes otherwise no.");
+                    String str = scanner.next();
+                    if (str.equalsIgnoreCase("Yes")) {
+                        programStart = true;
+                    } else {
+                        programStart = false;
+                    }
+                }
                 con.close();
                 System.out.println("Connection is closed successfully!!!");
             } else {

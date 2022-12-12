@@ -17,6 +17,7 @@ public class OperationPerformer {
                 query = CreateTable.createTable(tableName);
                 stmt = con.createStatement();
                 stmt.executeUpdate(query);
+
                 System.out.println("Table is created.");
             }
 
@@ -25,11 +26,9 @@ public class OperationPerformer {
                 stmt = con.createStatement();
                 rs = stmt.executeQuery(selectData);
 
-                ResultSetMetaData rsmd = rs.getMetaData();
-                int numberOfColumn = rsmd.getColumnCount();
-                System.out.println("Number of columns in the table is: " + numberOfColumn);
+                SelectTable.getStructuredTable(rs);
 
-                query = InsertTable.insertTable(tableName, numberOfColumn);
+//                query = InsertTable.insertTable(tableName);
 
 //                System.out.println("Data is inserted into table.");
             }
@@ -50,6 +49,6 @@ public class OperationPerformer {
                 System.out.println("You entered wrong values.");
             }
         }
-        System.out.println(query);
+//        System.out.println(query);
     }
 }

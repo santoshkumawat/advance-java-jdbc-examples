@@ -1,20 +1,21 @@
 package com.santosh.operations;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Scanner;
 
 public class SelectTable {
 
     static Scanner scanner = new Scanner(System.in);
 
-    public static String selectTable(String tableName){
-        String selectQuery = "SELECT * FROM " + tableName + ";";
-        return selectQuery;
+    public static String selectTable(String tableName, Connection con) throws SQLException {
+        String query = "SELECT * FROM " + tableName + ";";
+        Statement statement = con.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+        getStructuredData(resultSet);
+        return query;
     }
 
-    public static void getStructuredTable(ResultSet rs) throws SQLException {
+    public static void getStructuredData(ResultSet rs) throws SQLException {
         ResultSetMetaData rsmd = rs.getMetaData();
         int numberOfColumns = rsmd.getColumnCount();
 

@@ -1,11 +1,14 @@
 package com.santosh.operations;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
 public class CreateTable {
     static Scanner scanner = new Scanner(System.in);
 
-    public static String createTable(String tableName) {
+    public static String createTable(String tableName, Connection con) throws SQLException {
         StringBuilder createQuery = new StringBuilder();
 
         createQuery.append("CREATE TABLE ").append(tableName).append(" (");
@@ -51,7 +54,7 @@ public class CreateTable {
             if (extra.equalsIgnoreCase("YES")) {
                 if (i == columns) {
                     createQuery.append("AUTO_INCREMENT ");
-                } else{
+                } else {
                     createQuery.append("AUTO_INCREMENT, ");
                 }
             } else if (i == columns) {
@@ -61,6 +64,10 @@ public class CreateTable {
             }
         }
         createQuery.append(");");
-        return createQuery.toString();
+        String query = createQuery.toString();
+
+        Statement stmt = con.createStatement();
+        stmt.executeUpdate(query);
+        return query;
     }
 }
